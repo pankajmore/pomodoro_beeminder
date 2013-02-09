@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+
+require 'beeminder'
+
+token = "LdDuq4znAPCxQ69aQA5k"
+
+bee = Beeminder::User.new token
+
+goal = bee.goal "pomodoro"
+dp = Beeminder::Datapoint.new :value => 1, :comment => "via pom"
+
+puts "Started a pomodoro for 25 mins"
+sleep 5
+#Alert
+system "mplayer -really-quiet /home/pankajm/signal.wav &"
+puts "Did you really focus hard?"
+flag = gets.chomp
+if flag == "y" then
+   goal.add dp
+   puts "Sent to Beeminder"
+else
+   puts "FOCUS HARD!"
+end
+
