@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 
 require 'beeminder'
+require "highline/system_extensions"
+include HighLine::SystemExtensions
 
 token = "LdDuq4znAPCxQ69aQA5k"
 
@@ -14,8 +16,8 @@ sleep 25*60
 #Alert
 system "mplayer -really-quiet /home/pankajm/signal.wav &"
 puts "Did you really focus hard?"
-flag = gets.chomp
-if flag == "y" then
+flag = get_character.chr
+if flag == 'y' then
    goal.add dp
    puts "Sent to Beeminder"
 else

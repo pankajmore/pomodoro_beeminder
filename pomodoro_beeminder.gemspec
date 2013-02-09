@@ -17,5 +17,6 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
   gem.add_dependency "beeminder"
+  gem.add_dependency "highline"
   gem.default_executable = "pom"
 end
