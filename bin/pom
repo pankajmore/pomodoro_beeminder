@@ -10,7 +10,7 @@ goal = bee.goal "pomodoro"
 dp = Beeminder::Datapoint.new :value => 1, :comment => "via pom"
 
 puts "Started a pomodoro for 25 mins"
-sleep 5
+sleep 25*60
 #Alert
 system "mplayer -really-quiet /home/pankajm/signal.wav &"
 puts "Did you really focus hard?"
