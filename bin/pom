@@ -6,10 +6,12 @@ include HighLine::SystemExtensions
 
 token = "LdDuq4znAPCxQ69aQA5k"
 
-bee = Beeminder::User.new token
-
-goal = bee.goal "pomodoro"
-dp = Beeminder::Datapoint.new :value => 1, :comment => "via pom"
+def updateGoal token
+    bee = Beeminder::User.new token
+    goal = bee.goal "pomodoro"
+    dp = Beeminder::Datapoint.new :value => 1, :comment => "via pom"
+    goal.add dp
+end
 
 puts "Started a pomodoro for 25 mins"
 sleep 25*60
@@ -18,8 +20,15 @@ system "mplayer -really-quiet /home/pankajm/signal.wav &"
 puts "Did you really focus hard?"
 flag = get_character.chr
 if flag == 'y' then
-   goal.add dp
-   puts "Sent to Beeminder"
+   begin
+        updateGoal(token)
+   rescue StandardError=>e
+        puts "Check your internet connection...Retrying"
+        sleep 5
+        retry
+   else
+        puts "Sent to Beeminder"
+   end
 else
    puts "FOCUS HARD!"
 end
